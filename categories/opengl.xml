@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Bri's Notebook (Posts about opengl)</title><link>https://example.com/</link><description></description><atom:link href="https://example.com/categories/opengl.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2025 &lt;a href="mailto:"&gt;Bri&lt;/a&gt; </copyright><lastBuildDate>Fri, 13 Jun 2025 01:38:17 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Learning OpenGL in 2025.</title><link>https://example.com/posts/learning-opengl-in-2025/</link><dc:creator>Bri</dc:creator><description>&lt;h3&gt;My history in a nutshell.&lt;/h3&gt;
+&lt;hr&gt;
+&lt;p&gt;I'm a notorious project hopper.  While I've done small scale projects in a bunch of high level languages, I find myself unable to stick to just one.  Python seems to be the one I come back to most, but I've also played around with Java, C#, Lua, Rust, C, Javascript, Dart, and most importantly for this project, C++.&lt;/p&gt;
+&lt;p&gt;That being said, something about OpenGL was calling to me, but it seemed above my skill level.  My history consisted of web crawlers, API wrappers, and maaaaybe a discord bot or two as a teenager.  Could I really do something this complex?&lt;/p&gt;
+&lt;h3&gt;Starting the project&lt;/h3&gt;
+&lt;hr&gt;
+&lt;p&gt;I set my sights on OpenGL and took a moment to breathe.  With little to no experience in serious C++ coding, I felt a tightness in my chest even approaching the topic.&lt;/p&gt;
+&lt;p&gt;I made a couple decisions early on.  Mainly, I wanted to use CMake as my build system.  Beyond that, I wanted to use some external libraries to make my life just a little bit easier.  &lt;/p&gt;
+&lt;h4&gt;CMake and dependencies&lt;/h4&gt;
+&lt;hr&gt;
+&lt;p&gt;Here's my CMakeLists.txt:&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="nb"&gt;cmake_minimum_required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;VERSION&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;4.0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="nb"&gt;project&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;opengl-playground&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="nb"&gt;set&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;LUA_VERSION&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"lua-5.4.7"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="nb"&gt;find_package&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;Lua&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;REQUIRED&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="nb"&gt;include_directories&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;include/glad&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;LUA_LIBRARIES&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="nb"&gt;add_executable&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;opengl-playground&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="s"&gt;src/main.cpp&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="s"&gt;src/glad/glad.c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="nb"&gt;target_link_libraries&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;opengl-playground&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;glfw&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;LUA_LIBRARIES&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;As you can see, I included &lt;a href="https://www.glfw.org/"&gt;GLFW&lt;/a&gt;, glad, and Lua into this project.  GLFW is an open source library that essentially gives us an API to interact with OpenGL easier.  Glad manages function pointers for us, and Lua is Lua.  For now, that can be ignored.  It will come into play later. &lt;/p&gt;
+&lt;h3&gt;Finding the resources to learn OpenGL&lt;/h3&gt;
+&lt;hr&gt;
+&lt;p&gt;A surprisngly easy task.  A quick google search brought me to &lt;a href="https://learnopengl.com/"&gt;Learn OpenGL&lt;/a&gt;.  On their site they provide a free PDF to learn openGL.  Openening the book, one main thing caught my eye&lt;/p&gt;
+&lt;p&gt;&lt;img alt='"A table of contents showing Part 8 - 2D Game"' src="https://example.com/posts/images/part_8_opengl.png"&gt;&lt;/p&gt;
+&lt;p&gt;I nearly squealed when I found this!  Sure, that's not until much later in the book, but if it's willing to take me as far as an example Breakout clone?  I'm interested.&lt;/p&gt;
+&lt;p&gt;I rode that high for a minute, prepping my project a bit more.  I setup my project directory like so:&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;include&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;glad&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="nv"&gt;glad&lt;/span&gt;.&lt;span class="nv"&gt;h&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="nv"&gt;khrplatform&lt;/span&gt;.&lt;span class="nv"&gt;h&lt;/span&gt;
+&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;src&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;glad&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;glad&lt;/span&gt;.&lt;span class="nv"&gt;c&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;main&lt;/span&gt;.&lt;span class="nv"&gt;cpp&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;Understanding OpenGL.&lt;/h3&gt;
+&lt;p&gt;At this point, I got to reading.  Over the course of the next few days, I read through to &lt;code&gt;Chapter 6 - Shaders&lt;/code&gt; multiple times, still not fully understanding the concepts the book was trying to teach me.  My understanding of how the rendering pipeline worked was as follows;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Step 1 - OpenGL takes in a vertex shader that takes in a single vertex.  The idea is that we can do basic processing on the vertex attributes here, allowing us to modify color output and the like.&lt;/li&gt;
+&lt;li&gt;Step 2: We then take all the input from the vertex shader and form the primitive shapes&lt;/li&gt;
+&lt;li&gt;Step 3 - Those primitives get a geometry shader applies to them, and from this we can emit new verticies to form new primitives.&lt;/li&gt;
+&lt;li&gt;Step 4 - The geometry shader is then rastertized, meaning that the primitives we generated earlier are mapped to their screen position, resulting in fragments.  It's at this point clipping happens.&lt;ul&gt;
+&lt;li&gt;A fragment is the data for a single pixel.&lt;/li&gt;
+&lt;li&gt;Clipping is just removing any unseen fragments from rendering.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Step 5 - The fragment shader then calculates the final color of the pixel. &lt;/li&gt;
+&lt;li&gt;Step 6 - Alpha test and blending.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I started to understand a little bit, and Youtube videos helped me cover a little bit more.  With just a little bit of hope, I opened up VSCode and set my sights to getting a triangle on the screen.&lt;/p&gt;
+&lt;h3&gt;Writing the code&lt;/h3&gt;
+&lt;p&gt;I wrote the code a few days ago, and while I &lt;em&gt;could&lt;/em&gt; just drop all ~250 lines into a code block and call it a day, that doesn't sound too fun.  Instead, I want to show you my triangle!&lt;/p&gt;
+&lt;p&gt;&lt;img alt="A computer window showing a blue triangle on a purple background, slightly off-center." src="https://example.com/posts/images/the_triangle.png"&gt;&lt;/p&gt;
+&lt;p&gt;He's a little off-center, and the colors might clash a bit, but I got a triangle rendering!&lt;/p&gt;
+&lt;h2&gt;Ending things off&lt;/h2&gt;
+&lt;p&gt;I'm terrible at endings, so I figured I could try and hook you a bit for my next post.&lt;/p&gt;
+&lt;p&gt;I will try and explain my understanding of how to work with OpenGL in C++.  My goal, by the end of the post, is to have two triangles on screen.  I want one to fade between the RGB spectrum, though that might be a bit out of my reach.  The only way to find out is to get reading (&lt;del&gt;and watching youtube videos, let's be honest&lt;/del&gt;) into Chapter 6.&lt;/p&gt;</description><category>dev</category><category>opengl</category><guid>https://example.com/posts/learning-opengl-in-2025/</guid><pubDate>Thu, 12 Jun 2025 23:34:36 GMT</pubDate></item></channel></rss>
