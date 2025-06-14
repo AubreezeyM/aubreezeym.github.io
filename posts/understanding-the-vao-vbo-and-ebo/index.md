@@ -1,5 +1,5 @@
 <!--
-.. title: Staring at books and stackoverflow until things make sense.
+.. title: My Understanding of the VAO, VBO, EBO, and shaders
 .. slug: understanding-the-vao-vbo-and-ebo
 .. date: 2025-06-14 16:53:22 UTC-00:00
 .. tags: opengl,dev
